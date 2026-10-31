@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control de gastos personales</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <main class="contenedor">
+    <h1>Control de gastos personales</h1>
+
+    <!-- 1. FORMULARIO DE REGISTRO (Requisitos 1 y 2) -->
+    <form id="form-gasto" novalidate>
+      <div class="campo">
+        <label for="descripcion">Descripción del gasto</label>
+        <input id="descripcion" name="descripcion" type="text" placeholder="Ej: Almuerzo, Pasaje...">
+        <small id="error-descripcion" class="error"></small>
+      </div>
+
+      <div class="campo">
+        <label for="valor">Valor ($ COP)</label>
+        <input id="valor" name="valor" type="number" placeholder="Ej: 15000">
+        <small id="error-valor" class="error"></small>
+      </div>
+
+      <div class="campo">
+        <label for="categoria">Categoría</label>
+        <select id="categoria" name="categoria">
+          <option value="">-- Selecciona una categoría --</option>
+          <option value="Comida">Comida</option>
+          <option value="Transporte">Transporte</option>
+          <option value="Estudio">Estudio</option>
+          <option value="Otros">Otros</option>
+        </select>
+        <small id="error-categoria" class="error"></small>
+      </div>
+
+      <button type="submit" id="btn-agregar">Registrar gasto</button>
+    </form>
+
+    <!-- 2. FILTRO POR CATEGORÍA (Requisito 6) -->
+    <section class="seccion-filtro">
+      <label for="filtro-categoria">Filtrar por categoría:</label>
+      <select id="filtro-categoria">
+        <option value="Todas">Todas</option>
+        <option value="Comida">Comida</option>
+        <option value="Transporte">Transporte</option>
+        <option value="Estudio">Estudio</option>
+        <option value="Otros">Otros</option>
+      </select>
+    </section>
+
+    <!-- 3. TABLA VACÍA DE GASTOS (Requisito 3 y 4) -->
+    <table>
+      <thead>
+        <tr>
+          <th>Descripción</th>
+          <th>Categoría</th>
+          <th>Valor</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-gastos">
+        <!-- JavaScript insertará las filas (<tr>) aquí con createElement -->
+      </tbody>
+    </table>
+
+    <!-- 4. PÁRRAFO DEL TOTAL (Requisitos 5 y 7) -->
+    <p id="contenedor-total">
+      Total gastado: <span id="total-gastado">$0</span>
+    </p>
+  </main>
+</body>
+</html>
