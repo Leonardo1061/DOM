@@ -79,3 +79,59 @@ function render() {
 
 // Llamada inicial para mostrar la tabla y el total en $0 al abrir la página
 render();
+
+// ==========================================
+// PASO 5: Evento submit, validación y registro
+// ==========================================
+formGasto.addEventListener('submit', (e) => {
+  // 1. Evitar que el formulario recargue la página (Sección 7 de la guía)
+  e.preventDefault();
+
+  // 2. Leer los valores de los campos (.trim() quita espacios sobrantes)
+  const descripcion = inputDescripcion.value.trim();
+  const valorTexto = inputValor.value.trim();
+  const valorNumero = Number(valorTexto);
+  const categoria = selectCategoria.value;
+
+  // 3. Limpiar mensajes de error anteriores antes de volver a validar
+  errorDescripcion.textContent = '';
+  errorValor.textContent = '';
+  errorCategoria.textContent = '';
+
+  // 4. Verificar cada campo (Requisito 2: mostrar error debajo del campo correspondiente)
+  let hayErrores = false;
+
+  if (descripcion === '') {
+    errorDescripcion.textContent = 'Ingresa la descripción del gasto.';
+    hayErrores = true;
+  }
+
+  if (valorTexto === '' || isNaN(valorNumero) || valorNumero <= 0) {
+    errorValor.textContent = 'Ingresa un valor válido mayor que cero.';
+    hayErrores = true;
+  }
+
+  if (categoria === '') {
+    errorCategoria.textContent = 'Selecciona una categoría.';
+    hayErrores = true;
+  }
+
+  // Si hubo algún error, detenemos la función aquí con return (Sección 7 de la guía)
+  if (hayErrores) {
+    return;
+  }
+
+  // 5. Si todo está correcto, guardamos el nuevo gasto en el arreglo (Sección 9 de la guía)
+  const nuevoGasto = {
+    id: Date.now(), // Genera un identificador único con la fecha/hora actual en milisegundos
+    descripcion: descripcion,
+    valor: valorNumero,
+    categoria: categoria
+  };
+
+  gastos.push(nuevoGasto);
+
+  // 6. Limpiar el formulario y actualizar la pantalla
+  formGasto.reset();
+  render();
+});
