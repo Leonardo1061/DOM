@@ -135,3 +135,26 @@ formGasto.addEventListener('submit', (e) => {
   formGasto.reset();
   render();
 });
+// ==========================================
+// PASO 6: Eliminar gastos (delegación de eventos)
+// ==========================================
+tablaGastos.addEventListener('click', (e) => {
+  // 1. Verificar si el elemento donde se hizo clic es un botón "Eliminar" (Sección 6 de la guía)
+  if (e.target.matches('.btn-eliminar')) {
+    // 2. Buscar la fila <tr> más cercana al botón presionado (Sección 9 de la guía)
+    const fila = e.target.closest('tr');
+    if (!fila) return;
+
+    // 3. Obtener el id del gasto guardado en data-id y convertirlo a número
+    const idGasto = Number(fila.dataset.id);
+
+    // 4. Quitar ese gasto del arreglo dejando solo los que tengan un id diferente
+    gastos = gastos.filter((gasto) => gasto.id !== idGasto);
+
+    // 5. Volver a dibujar la tabla y recalcular el total
+    render();
+  }
+});
+selectFiltro.addEventListener('change', () => {
+  render();
+});
